@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vizzy-backend
+    env_file:
+      - ./backend/.env          # GROQ_API_KEY lives here — never commit this file
+    environment:
+      - ALLOWED_ORIGINS=http://localhost
+    volumes:
+      - vizzy-data:/app/data    # Persist uploads + Milvus Lite DB across restarts
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/docs')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Points the built frontend at the backend
+        # Change to your domain in production, e.g. https://api.vizzy.com
+        VITE_API_BASE: http://localhost:8000
+    container_name: vizzy-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  vizzy-data:
+    driver: local

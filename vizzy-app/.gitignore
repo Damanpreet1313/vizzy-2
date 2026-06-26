@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+*.egg-info/
+
+# Virtual environment
+backend/venv/
+
+# Environment secrets — NEVER commit
+backend/.env
+
+# Milvus local database
+backend/data/
+
+# Uploaded files
+backend/huge_book.txt
+backend/test.txt
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# OS
+.DS_Store
+Thumbs.db

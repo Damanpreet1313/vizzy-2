@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+data/
+.env
+*.txt.bak
+test_api.py
+advanced_test_cases.py
+huge_book.txt
+test.txt

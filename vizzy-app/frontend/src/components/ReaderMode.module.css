@@ -1,0 +1,241 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #080810;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Top bar ── */
+.topBar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: rgba(8, 8, 16, 0.9);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+}
+
+.progress {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.dot {
+  width: 28px;
+  height: 4px;
+  border-radius: 99px;
+  background: var(--border);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.dot:hover {
+  background: var(--text-muted);
+  transform: scaleY(1.5);
+}
+
+.dotDone {
+  background: rgba(124, 106, 247, 0.45);
+}
+
+.dotActive {
+  background: var(--accent2);
+  transform: scaleY(1.5);
+}
+
+.counter {
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.closeBtn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  padding: 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.closeBtn:hover {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+/* ── Image area ── */
+.imageArea {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.imgPlaceholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+}
+
+.imgSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: block;
+}
+
+.imageVisible {
+  opacity: 1;
+}
+
+/* ── Info panel ── */
+.infoPanel {
+  flex-shrink: 0;
+  background: rgba(8, 8, 16, 0.95);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  padding: 20px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 38vh;
+  overflow-y: auto;
+}
+
+.infoInner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quote {
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--accent2);
+  margin: 0;
+  padding: 0 4px;
+}
+
+.quoteMark {
+  font-size: 22px;
+  line-height: 0;
+  vertical-align: -6px;
+  color: var(--accent);
+  font-style: normal;
+  margin: 0 2px;
+}
+
+.summary {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Nav row ── */
+.navRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.navBtn {
+  padding: 10px 28px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+  min-width: 110px;
+}
+
+.prevBtn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.prevBtn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.nextBtn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+}
+
+.nextBtn:hover:not(:disabled) {
+  background: var(--accent2);
+  transform: translateX(2px);
+}
+
+.finishBtn {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+}
+
+.finishBtn:hover {
+  opacity: 0.9;
+  transform: scale(1.02) !important;
+}
+
+.navHint {
+  display: flex;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* Responsive — hide hint on small screens */
+@media (max-width: 500px) {
+  .navHint { display: none; }
+  .navBtn { min-width: 80px; padding: 10px 16px; }
+}
